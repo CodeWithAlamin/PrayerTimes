@@ -5,7 +5,7 @@ import useCurrentPrayer from "./hooks/useCurrentPrayer";
 function App() {
   const { prayerTimes, metaData, isLoading } = usePrayerTimes();
   const { currentPrayer } = useCurrentPrayer();
-  const array = Object.entries(prayerTimes);
+  const PrayerTimesArray = Object.entries(prayerTimes);
 
   return (
     <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4">
@@ -37,7 +37,7 @@ function App() {
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-2 max-w-7xl mx-auto">
-            {array.map((prayer) => (
+            {PrayerTimesArray.map((prayer) => (
               <div
                 className={`${
                   prayer[0] === currentPrayer.name

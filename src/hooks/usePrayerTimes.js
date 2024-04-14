@@ -20,15 +20,19 @@ function usePrayerTimes() {
       const { timings } = data;
       const { meta } = data;
 
-      // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time. so we need to calculate it now.
+      // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time.
       const asrEnd = new Date(timings["Maghrib"]);
-
       asrEnd.setMinutes(asrEnd.getMinutes() - 15);
-
       const asrEndIso = asrEnd.toISOString();
+
+      // sunrise should last for 20 minutes
+      const sunrise = new Date(timings["Sunrise"]);
+      sunrise.setMinutes(sunrise.getMinutes() + 20);
+      const sunriseIso = sunrise.toISOString();
 
       const formatedTimings = {
         Fajr: { from: timings.Fajr, to: timings.Sunrise },
+        Sunrise: { from: timings.Sunrise, to: sunriseIso },
         Dhuhr: { from: timings.Dhuhr, to: timings.Asr },
         Asr: { from: timings.Asr, to: asrEndIso },
         Maghrib: { from: timings.Maghrib, to: timings.Isha },
