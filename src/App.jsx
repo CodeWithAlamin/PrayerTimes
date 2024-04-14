@@ -47,10 +47,12 @@ function App() {
 
       asrEnd.setMinutes(asrEnd.getMinutes() - 15);
 
+      const asrEndIso = asrEnd.toISOString();
+
       const formatedTimings = {
         Fajr: { from: timings.Fajr, to: timings.Sunrise },
         Dhuhr: { from: timings.Dhuhr, to: timings.Asr },
-        Asr: { from: timings.Asr, to: asrEnd },
+        Asr: { from: timings.Asr, to: asrEndIso },
         Maghrib: { from: timings.Maghrib, to: timings.Isha },
         Isha: { from: timings.Isha, to: timings.Midnight },
       };
@@ -66,52 +68,42 @@ function App() {
   useEffect(() => {
     const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
-    const updateRemainingTime = () => {
-      // // calculate current prayer
-      const nextPrayer = prayers.find((prayer) => {
-        if (!prayerTimes[prayer]) return;
+    const updateCurrentPrayer = () => {
+      if (!prayerTimes[prayers[0]]) return;
+      // calculate current prayer
+      const now = new Date();
+      let currentPrayer = { name: "", remaining: "" };
 
-        const [hour, minute] = prayerTimes[prayer].from.split(":");
-        const prayerTime = new Date();
-        prayerTime.setHours(hour);
-        prayerTime.setMinutes(minute);
+      // find the current prayer, use forEach
+      prayers.forEach((prayer) => {
+        // if (!prayerTimes[prayer]) return;
 
-        const currentTime = new Date();
+        const from = new Date(prayerTimes[prayer].from);
+        const to = new Date(prayerTimes[prayer].to);
 
-        return currentTime < prayerTime;
+        if (now >= from && now <= to) {
+          currentPrayer.name = prayer;
+        }
       });
 
-      const index = prayers.indexOf(nextPrayer);
-      const currentPrayerName = index === 0 ? prayers[4] : prayers[index - 1];
-
+      ///////////////////////////
       // calculate remaining time
-      if (!prayerTimes[currentPrayerName]) return;
+      if (!currentPrayer.name) return;
 
-      const [hour, minute] = prayerTimes[currentPrayerName].to.split(":");
-      const prayerTime = new Date();
-      prayerTime.setHours(hour);
-      prayerTime.setMinutes(minute);
-
-      const currentTime = new Date();
-      const diff = prayerTime - currentTime;
-
-      const hours = Math.floor(diff / 1000 / 60 / 60);
+      const to = new Date(prayerTimes[currentPrayer.name].to);
+      const diff = to - now;
       const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
 
-      const remainingTime = `${hours} hours ${minutes} minutes`;
-
-      const currentPrayer = {
-        name: currentPrayerName,
-        remaining: remainingTime,
-      };
+      currentPrayer.remaining = `${hours} hours ${minutes} minutes`;
 
       setCurrentPrayer(currentPrayer);
     };
 
-    updateRemainingTime(); // Call the function immediately
+    updateCurrentPrayer(); // Call the function immediately
 
     // update the remaining time every ten seconds
-    const interval = setInterval(updateRemainingTime, 10000);
+    const interval = setInterval(updateCurrentPrayer, 5000);
 
     return () => clearInterval(interval);
   }, [prayerTimes]);
@@ -129,8 +121,14 @@ function App() {
         <div>
           <div>
             <h2>Current Waqt</h2>
-            <p>{currentPrayer.name}</p>
-            <p>{currentPrayer.remaining}</p>
+            {currentPrayer.name ? (
+              <div>
+                <p>{currentPrayer.name}</p>
+                <p>{currentPrayer.remaining}</p>
+              </div>
+            ) : (
+              "No prayer at the moment"
+            )}
           </div>
           <hr />
           <div>
