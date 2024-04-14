@@ -105,8 +105,11 @@ function App() {
       </div>
       <hr />
       <div>
-        {array.map((prayer, i) => (
-          <p className={i === 2 ? "current-prayer" : ""} key={prayer[0]}>
+        {array.map((prayer) => (
+          <p
+            className={prayer[0] === currentPrayerName ? "current-prayer" : ""}
+            key={prayer[0]}
+          >
             {prayer[0]} : {prayer[1].from} - {prayer[1].to}
           </p>
         ))}
