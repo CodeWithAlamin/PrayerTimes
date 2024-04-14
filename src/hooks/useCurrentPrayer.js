@@ -40,14 +40,21 @@ function useCurrentPrayer() {
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
 
-      currentPrayer.remaining = `${hours} hours ${minutes} minutes`;
+      // if hour is 0, show only minutes and if minutes is 0, show only hours
+      // if hour is just 1 then write hour not hours
+      const hourText = hours ? `${hours} hour${hours > 1 ? "s" : ""}` : "";
+      const minuteText = minutes
+        ? `${minutes} minute${minutes > 1 ? "s" : ""}`
+        : "";
+
+      currentPrayer.remaining = `${hourText} ${minuteText} left`;
 
       setCurrentPrayer(currentPrayer);
     };
 
     updateCurrentPrayer(); // Call the function immediately
 
-    // update the remaining time every ten seconds
+    // update the remaining time
     const interval = setInterval(updateCurrentPrayer, 5000);
 
     return () => clearInterval(interval);

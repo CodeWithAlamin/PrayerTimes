@@ -4,11 +4,13 @@ import usePosition from "./usePosition";
 
 function usePrayerTimes() {
   const [isLoading, setIsLoading] = useState(true);
-  const latLong = usePosition();
+  // const latLong = usePosition();
 
   const [prayerTimes, setPrayerTimes] = useState({});
 
   useEffect(() => {
+    const latLong = { latitude: 23.822337, longitude: 90.3654296 };
+
     async function fetchData() {
       if (!latLong.latitude || !latLong.longitude) return;
 
@@ -36,7 +38,7 @@ function usePrayerTimes() {
     }
 
     fetchData();
-  }, [latLong]);
+  }, []);
 
   return { prayerTimes, isLoading };
 }
