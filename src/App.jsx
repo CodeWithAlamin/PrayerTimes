@@ -1,40 +1,51 @@
 import { useEffect } from "react";
 import { callApi } from "./Services";
 import { useState } from "react";
+import { formateTime } from "./common";
+// import { getPosition } from "./common";
 
 function App() {
-  const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+  const [isLoading, setIsLoading] = useState(true); // Add this line
+
   const [prayerTimes, setPrayerTimes] = useState({});
-  const [remainingTime, setRemainingTime] = useState("");
+  const [currentPrayer, setCurrentPrayer] = useState({
+    name: "",
+    remaining: "",
+  });
+
+  const [latLong, setLatLong] = useState({});
+  // console.log(latLong);
+
+  // get the position
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatLong({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await callApi();
+      if (!latLong.latitude || !latLong.longitude) return;
+
+      setIsLoading(true);
+      const { data } = await callApi(latLong);
       const { timings } = data;
 
-      // sample data from the API
-      // Fajr : 04:15
-      // Sunrise : 05:39
-      // Dhuhr : 11:59
-      // Asr : 15:26
-      // Sunset : 18:19
-      // Maghrib : 18:19
-      // Isha : 19:49
-      // Imsak : 04:05
-      // Midnight : 23:59
-      // Firstthird : 22:06
-      // Lastthird : 01:52
-
       // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time. so we need to calculate it now.
-      const [hour, minute] = timings["Maghrib"].split(":");
-      const Maghrib = new Date();
-      Maghrib.setHours(hour);
-      Maghrib.setMinutes(minute);
-      Maghrib.setMinutes(Maghrib.getMinutes() - 15);
+      const asrEnd = new Date(timings["Maghrib"]);
 
-      const asrEndHour = Maghrib.getHours();
-      const asrEndMinute = Maghrib.getMinutes();
-      const asrEnd = `${asrEndHour}:${asrEndMinute}`;
+      asrEnd.setMinutes(asrEnd.getMinutes() - 15);
 
       const formatedTimings = {
         Fajr: { from: timings.Fajr, to: timings.Sunrise },
@@ -45,31 +56,35 @@ function App() {
       };
 
       setPrayerTimes(formatedTimings);
+      setIsLoading(false);
     }
 
     fetchData();
-  }, []);
-
-  // // calculate current prayer
-  const nextPrayer = prayers.find((prayer) => {
-    if (!prayerTimes[prayer]) return;
-
-    const [hour, minute] = prayerTimes[prayer].from.split(":");
-    const prayerTime = new Date();
-    prayerTime.setHours(hour);
-    prayerTime.setMinutes(minute);
-
-    const currentTime = new Date();
-
-    return currentTime < prayerTime;
-  });
-
-  const index = prayers.indexOf(nextPrayer);
-  const currentPrayerName = index === 0 ? prayers[4] : prayers[index - 1];
+  }, [latLong]);
 
   // calculate remaining time and update the state every minute
   useEffect(() => {
+    const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+
     const updateRemainingTime = () => {
+      // // calculate current prayer
+      const nextPrayer = prayers.find((prayer) => {
+        if (!prayerTimes[prayer]) return;
+
+        const [hour, minute] = prayerTimes[prayer].from.split(":");
+        const prayerTime = new Date();
+        prayerTime.setHours(hour);
+        prayerTime.setMinutes(minute);
+
+        const currentTime = new Date();
+
+        return currentTime < prayerTime;
+      });
+
+      const index = prayers.indexOf(nextPrayer);
+      const currentPrayerName = index === 0 ? prayers[4] : prayers[index - 1];
+
+      // calculate remaining time
       if (!prayerTimes[currentPrayerName]) return;
 
       const [hour, minute] = prayerTimes[currentPrayerName].to.split(":");
@@ -83,37 +98,58 @@ function App() {
       const hours = Math.floor(diff / 1000 / 60 / 60);
       const minutes = Math.floor((diff / 1000 / 60) % 60);
 
-      setRemainingTime(`${hours} hours ${minutes} minutes`);
+      const remainingTime = `${hours} hours ${minutes} minutes`;
+
+      const currentPrayer = {
+        name: currentPrayerName,
+        remaining: remainingTime,
+      };
+
+      setCurrentPrayer(currentPrayer);
     };
 
     updateRemainingTime(); // Call the function immediately
 
-    const interval = setInterval(updateRemainingTime, 60000); // Then set the interval
+    // update the remaining time every ten seconds
+    const interval = setInterval(updateRemainingTime, 10000);
 
     return () => clearInterval(interval);
-  }, [currentPrayerName, prayerTimes]);
+  }, [prayerTimes]);
 
   const array = Object.entries(prayerTimes);
-  // console.log(array);
+
+  //////////////
+  ////////////////
 
   return (
-    <div>
-      <div>
-        <h2>Current Waqt</h2>
-        <p>{currentPrayerName}</p>
-        <p>{remainingTime}</p>
-      </div>
-      <hr />
-      <div>
-        {array.map((prayer) => (
-          <p
-            className={prayer[0] === currentPrayerName ? "current-prayer" : ""}
-            key={prayer[0]}
-          >
-            {prayer[0]} : {prayer[1].from} - {prayer[1].to}
-          </p>
-        ))}
-      </div>
+    <div className="bg-slate-800 min-h-screen text-white">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          <div>
+            <h2>Current Waqt</h2>
+            <p>{currentPrayer.name}</p>
+            <p>{currentPrayer.remaining}</p>
+          </div>
+          <hr />
+          <div>
+            {array.map((prayer) => (
+              <p
+                className={
+                  prayer[0] === currentPrayer.name
+                    ? "border-l-4 border-l-yellow-300 pl-2 m-2 ml-0 text-2xl"
+                    : ""
+                }
+                key={prayer[0]}
+              >
+                {prayer[0]} : {formateTime(prayer[1].from)} -{" "}
+                {formateTime(prayer[1].to)}
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
