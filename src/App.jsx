@@ -10,7 +10,9 @@ function App() {
   return (
     <div className="bg-slate-800 min-h-screen text-white">
       {isLoading ? (
-        <p>Loading...</p>
+        <div className="flex justify-center items-center pt-4">
+          <span className="h-8 w-8 rounded-full animate-spin border-4 border-yellow-300/30 border-t-yellow-300"></span>
+        </div>
       ) : (
         <div>
           <div>
