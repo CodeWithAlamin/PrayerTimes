@@ -19,7 +19,7 @@ function App() {
         <div className="w-full">
           <div className=" mx-auto bg-slate-700 max-w-md w-full rounded mb-8 p-4 flex flex-col items-center">
             <h2 className="text-2xl mb-4 border-b-2 border-dotted border-yellow-300 pb-2">
-              Current Waqt
+              Current Prayer
             </h2>
             {currentPrayer.name ? (
               <>
