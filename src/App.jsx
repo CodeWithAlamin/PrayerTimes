@@ -5,6 +5,7 @@ import { useState } from "react";
 function App() {
   const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
   const [prayerTimes, setPrayerTimes] = useState({});
+  const [remainingTime, setRemainingTime] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -66,15 +67,41 @@ function App() {
   const index = prayers.indexOf(nextPrayer);
   const currentPrayerName = index === 0 ? prayers[4] : prayers[index - 1];
 
+  // calculate remaining time and update the state every minute
+  useEffect(() => {
+    const updateRemainingTime = () => {
+      if (!prayerTimes[currentPrayerName]) return;
+
+      const [hour, minute] = prayerTimes[currentPrayerName].to.split(":");
+      const prayerTime = new Date();
+      prayerTime.setHours(hour);
+      prayerTime.setMinutes(minute);
+
+      const currentTime = new Date();
+      const diff = prayerTime - currentTime;
+
+      const hours = Math.floor(diff / 1000 / 60 / 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+      setRemainingTime(`${hours} hours ${minutes} minutes`);
+    };
+
+    updateRemainingTime(); // Call the function immediately
+
+    const interval = setInterval(updateRemainingTime, 60000); // Then set the interval
+
+    return () => clearInterval(interval);
+  }, [currentPrayerName, prayerTimes]);
+
   const array = Object.entries(prayerTimes);
-  console.log(array);
+  // console.log(array);
 
   return (
     <div>
       <div>
         <h2>Current Waqt</h2>
         <p>{currentPrayerName}</p>
-        <p>{}</p>
+        <p>{remainingTime}</p>
       </div>
       <hr />
       <div>
