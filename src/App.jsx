@@ -13,12 +13,12 @@ function App() {
 
       {isLoading ? (
         <div className="flex justify-center items-center pt-4">
-          <span className="h-8 w-8 rounded-full animate-spin border-4 border-yellow-300/30 border-t-yellow-300"></span>
+          <span className="h-8 w-8 rounded-full animate-spin border-4 border-emerald-300/50 border-t-emerald-300"></span>
         </div>
       ) : (
         <div className="w-full">
-          <div className=" mx-auto bg-sky-800 max-w-md w-full rounded mb-8 p-4 flex flex-col items-center">
-            <h2 className="text-2xl mb-4 border-b-2 border-dotted border-yellow-300 pb-2">
+          <div className=" mx-auto bg-emerald-600 max-w-md w-full rounded mb-8 p-4 flex flex-col items-center">
+            <h2 className="text-2xl mb-4 border-b-2 border-dotted border-white pb-2">
               Current Prayer
             </h2>
             {currentPrayer.name ? (
