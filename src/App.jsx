@@ -17,7 +17,7 @@ function App() {
         </div>
       ) : (
         <div className="w-full">
-          <div className=" mx-auto bg-slate-700 max-w-md w-full rounded mb-8 p-4 flex flex-col items-center">
+          <div className=" mx-auto bg-sky-800 max-w-md w-full rounded mb-8 p-4 flex flex-col items-center">
             <h2 className="text-2xl mb-4 border-b-2 border-dotted border-yellow-300 pb-2">
               Current Prayer
             </h2>
@@ -36,12 +36,12 @@ function App() {
               <div
                 className={`${
                   prayer[0] === currentPrayer.name
-                    ? "bg-yellow-300 text-black"
-                    : "bg-slate-700 text-white"
+                    ? "bg-sky-800"
+                    : "bg-slate-700"
                 } p-4 rounded flex flex-col items-center max-w-xm`}
                 key={prayer[0]}
               >
-                <p className="font-bold mb-2 ">{prayer[0]}</p>
+                <p className="font-bold text-xl mb-2 ">{prayer[0]}</p>
 
                 <hr className="border-0 border-b-2 border-dotted border-current w-1/2 mb-4" />
 
