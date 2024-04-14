@@ -1,21 +1,3 @@
-export function getPosition() {
-  let myPosition = null;
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // console.log(position);
-        myPosition = position;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-
-  return myPosition;
-}
-
 export function formateTime(time) {
   // sample time 2024-04-14T19:24:00+06:00
   // to nice format in 12 hours 07:24 PM
