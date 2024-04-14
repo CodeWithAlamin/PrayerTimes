@@ -1,6 +1,6 @@
 import { formateTime } from "./common";
-import usePrayerTimes from "./usePrayerTimes";
-import useCurrentPrayer from "./useCurrentPrayer";
+import usePrayerTimes from "./hooks/usePrayerTimes";
+import useCurrentPrayer from "./hooks/useCurrentPrayer";
 
 function App() {
   const { prayerTimes, isLoading } = usePrayerTimes();

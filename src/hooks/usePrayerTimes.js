@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { callApi } from "./Services";
+import { callApi } from "../apiServices";
 import usePosition from "./usePosition";
 
 function usePrayerTimes() {
