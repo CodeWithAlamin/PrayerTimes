@@ -17,7 +17,7 @@ function App() {
         </div>
       ) : (
         <div className="w-full">
-          <div className=" mx-auto bg-emerald-600 max-w-md w-full rounded mb-8 p-4 flex flex-col items-center">
+          <div className=" mx-auto bg-emerald-600 max-w-md w-full rounded-2xl mb-8 p-4 flex flex-col items-center">
             <h2 className="text-2xl mb-4 border-b-2 border-dotted border-white pb-2">
               Current Prayer
             </h2>
@@ -31,19 +31,19 @@ function App() {
             )}
           </div>
 
-          <div className="mb-4 text-xs text-center select-none">
+          <div className="mb-8 text-xs text-center select-none">
             <p>Based on: {metaData.method.name}</p>
             <p>Location: {metaData.timezone}</p>
           </div>
 
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-2 max-w-7xl mx-auto">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(7rem,1fr))] gap-2 max-w-7xl mx-auto">
             {PrayerTimesArray.map((prayer) => (
               <div
                 className={`${
                   prayer[0] === currentPrayer.name
                     ? "bg-emerald-600"
                     : "bg-slate-700"
-                } p-4 rounded flex flex-col items-center max-w-xm`}
+                } p-4 rounded flex flex-col items-center max-w-xm rounded-t-full`}
                 key={prayer[0]}
               >
                 <p className="font-bold text-xl mb-2 ">{prayer[0]}</p>
