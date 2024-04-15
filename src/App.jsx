@@ -67,7 +67,7 @@ function App() {
         <span className="text-center block">
           Made with ❤️ by{" "}
           <a
-            className="text-emerald-300"
+            className="text-emerald-300 underline"
             href="https://github.com/CodePapa360"
             target="_blank"
             rel="noopener noreferrer"
