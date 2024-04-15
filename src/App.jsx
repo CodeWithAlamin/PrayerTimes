@@ -63,7 +63,7 @@ function App() {
         )}
       </div>
 
-      <footer className="bg-slate-900 text-white py-6 px-4 ">
+      <footer className="bg-slate-900 text-white py-6 px-4 border-double border-t-4 border-emerald-500">
         <span className="text-center block">
           Made with ❤️ by{" "}
           <a
