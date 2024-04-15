@@ -36,7 +36,7 @@ function App() {
               <div
                 className={`${
                   prayer[0] === currentPrayer.name
-                    ? "bg-sky-800"
+                    ? "bg-emerald-600"
                     : "bg-slate-700"
                 } p-4 rounded flex flex-col items-center max-w-xm`}
                 key={prayer[0]}
