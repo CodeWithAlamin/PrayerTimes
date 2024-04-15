@@ -31,7 +31,7 @@ function App() {
             )}
           </div>
 
-          <div className="mb-4 text-xs text-center">
+          <div className="mb-4 text-xs text-center select-none">
             <p>Based on: {metaData.method.name}</p>
             <p>Location: {metaData.timezone}</p>
           </div>
