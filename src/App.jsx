@@ -3,7 +3,7 @@ import usePrayerTimes from "./hooks/usePrayerTimes";
 import useCurrentPrayer from "./hooks/useCurrentPrayer";
 
 function App() {
-  const { prayerTimes, isLoading } = usePrayerTimes();
+  const { prayerTimes, metaData, isLoading } = usePrayerTimes();
   const { currentPrayer } = useCurrentPrayer();
   const array = Object.entries(prayerTimes);
 
@@ -29,6 +29,11 @@ function App() {
             ) : (
               "No prayer at the moment"
             )}
+          </div>
+
+          <div className="mb-4 text-xs text-center">
+            <p>Based on: {metaData.method.name}</p>
+            <p>Location: {metaData.timezone}</p>
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-2 max-w-7xl mx-auto">

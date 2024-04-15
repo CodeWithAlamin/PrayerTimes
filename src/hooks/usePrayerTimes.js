@@ -7,6 +7,7 @@ function usePrayerTimes() {
   const latLong = usePosition();
 
   const [prayerTimes, setPrayerTimes] = useState({});
+  const [metaData, setMetaData] = useState({});
 
   useEffect(() => {
     // const latLong = { latitude: 23.822337, longitude: 90.3654296 };
@@ -17,6 +18,7 @@ function usePrayerTimes() {
       setIsLoading(true);
       const { data } = await callApi(latLong);
       const { timings } = data;
+      const { meta } = data;
 
       // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time. so we need to calculate it now.
       const asrEnd = new Date(timings["Maghrib"]);
@@ -34,13 +36,14 @@ function usePrayerTimes() {
       };
 
       setPrayerTimes(formatedTimings);
+      setMetaData(meta);
       setIsLoading(false);
     }
 
     fetchData();
   }, [latLong]);
 
-  return { prayerTimes, isLoading };
+  return { prayerTimes, metaData, isLoading };
 }
 
 export default usePrayerTimes;
