@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4">
+      <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4 ">
         <h1 className="text-center m-6 text-3xl font-bold">Prayer Times</h1>
 
         {isLoading ? (
@@ -17,7 +17,7 @@ function App() {
             <span className="h-8 w-8 rounded-full animate-spin border-4 border-emerald-300/50 border-t-emerald-300"></span>
           </div>
         ) : (
-          <div className="w-full">
+          <div className="w-full mb-8">
             <div className=" mx-auto bg-emerald-600 max-w-md w-full rounded-2xl mb-8 p-4 flex flex-col items-center">
               <h2 className="text-2xl mb-4 border-b-2 border-dotted border-white pb-2">
                 Current Prayer
@@ -63,7 +63,7 @@ function App() {
         )}
       </div>
 
-      <footer className="bg-slate-900 text-white py-6 px-4">
+      <footer className="bg-slate-900 text-white py-6 px-4 ">
         <span className="text-center block">
           Made with ❤️ by{" "}
           <a
