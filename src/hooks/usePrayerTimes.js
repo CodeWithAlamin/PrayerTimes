@@ -10,6 +10,7 @@ function usePrayerTimes() {
   const [metaData, setMetaData] = useState({});
 
   useEffect(() => {
+    // For testing purpose
     // const latLong = { latitude: 23.822337, longitude: 90.3654296 };
 
     async function fetchData() {
