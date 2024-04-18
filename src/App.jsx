@@ -8,7 +8,7 @@ function App() {
   const PrayerTimesArray = Object.entries(prayerTimes);
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1 min-h-screen justify-between">
+    <div className="grid grid-cols-1 grid-rows-1 min-h-screen min-h-dvh min-h-svh justify-between">
       <div className="bg-slate-800 text-white overflow-hidden flex flex-col items-center p-2 px-4 select-none">
         <h1 className="text-center m-6 text-5xl font-bold font-[cursive]">
           Prayer Times
