@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4 ">
+      <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4 select-none">
         <h1 className="text-center m-6 text-3xl font-bold font-[cursive]">
           Prayer Times
         </h1>
