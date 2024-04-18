@@ -3,7 +3,7 @@ import usePrayerTimes from "./hooks/usePrayerTimes";
 import useCurrentPrayer from "./hooks/useCurrentPrayer";
 
 function App() {
-  const { prayerTimes, metaData, isLoading } = usePrayerTimes();
+  const { prayerTimes, metaData, isLoading, error } = usePrayerTimes();
   const { currentPrayer } = useCurrentPrayer();
   const PrayerTimesArray = Object.entries(prayerTimes);
 
@@ -11,12 +11,19 @@ function App() {
     <>
       <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4 ">
         <h1 className="text-center m-6 text-3xl font-bold">Prayer Times</h1>
+        {error && (
+          <div className="bg-red-500 text-white p-4 rounded-lg mb-4">
+            {error}
+          </div>
+        )}
 
-        {isLoading ? (
+        {isLoading && (
           <div className="flex justify-center items-center pt-4">
             <span className="h-8 w-8 rounded-full animate-spin border-4 border-emerald-300/50 border-t-emerald-300"></span>
           </div>
-        ) : (
+        )}
+
+        {!isLoading && !error && (
           <div className="w-full mb-8">
             <div className=" mx-auto bg-emerald-600 max-w-md w-full rounded-2xl mb-8 p-4 flex flex-col items-center">
               <h2 className="text-2xl mb-4 border-b-2 border-dotted border-white pb-2">

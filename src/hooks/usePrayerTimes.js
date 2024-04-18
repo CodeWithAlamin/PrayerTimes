@@ -4,7 +4,8 @@ import usePosition from "./usePosition";
 
 function usePrayerTimes() {
   const [isLoading, setIsLoading] = useState(true);
-  const latLong = usePosition();
+  const [error, setError] = useState(null);
+  const { latLong, positionError } = usePosition();
 
   const [prayerTimes, setPrayerTimes] = useState({});
   const [metaData, setMetaData] = useState({});
@@ -17,38 +18,59 @@ function usePrayerTimes() {
       if (!latLong.latitude || !latLong.longitude) return;
 
       setIsLoading(true);
-      const { data } = await callApi(latLong);
-      const { timings } = data;
-      const { meta } = data;
 
-      // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time.
-      const asrEnd = new Date(timings["Maghrib"]);
-      asrEnd.setMinutes(asrEnd.getMinutes() - 15);
-      const asrEndIso = asrEnd.toISOString();
+      try {
+        const response = await callApi(latLong);
 
-      // sunrise should last for 20 minutes
-      const sunrise = new Date(timings["Sunrise"]);
-      sunrise.setMinutes(sunrise.getMinutes() + 20);
-      const sunriseIso = sunrise.toISOString();
+        if (response.error) {
+          setError("Failed to fetch data");
+          setIsLoading(false);
+          return;
+        }
 
-      const formatedTimings = {
-        Fajr: { from: timings.Fajr, to: timings.Sunrise },
-        Sunrise: { from: timings.Sunrise, to: sunriseIso },
-        Dhuhr: { from: timings.Dhuhr, to: timings.Asr },
-        Asr: { from: timings.Asr, to: asrEndIso },
-        Maghrib: { from: timings.Maghrib, to: timings.Isha },
-        Isha: { from: timings.Isha, to: timings.Midnight },
-      };
+        const { data } = response;
+        const { timings } = data;
+        const { meta } = data;
 
-      setPrayerTimes(formatedTimings);
-      setMetaData(meta);
-      setIsLoading(false);
+        // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time.
+        const asrEnd = new Date(timings["Maghrib"]);
+        asrEnd.setMinutes(asrEnd.getMinutes() - 15);
+        const asrEndIso = asrEnd.toISOString();
+
+        // sunrise should last for 20 minutes
+        const sunrise = new Date(timings["Sunrise"]);
+        sunrise.setMinutes(sunrise.getMinutes() + 20);
+        const sunriseIso = sunrise.toISOString();
+
+        const formatedTimings = {
+          Fajr: { from: timings.Fajr, to: timings.Sunrise },
+          Sunrise: { from: timings.Sunrise, to: sunriseIso },
+          Dhuhr: { from: timings.Dhuhr, to: timings.Asr },
+          Asr: { from: timings.Asr, to: asrEndIso },
+          Maghrib: { from: timings.Maghrib, to: timings.Isha },
+          Isha: { from: timings.Isha, to: timings.Midnight },
+        };
+
+        setPrayerTimes(formatedTimings);
+        setMetaData(meta);
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setIsLoading(false);
+      }
     }
 
     fetchData();
   }, [latLong]);
 
-  return { prayerTimes, metaData, isLoading };
+  useEffect(() => {
+    if (positionError) {
+      setError(positionError);
+      setIsLoading(false);
+    }
+  }, [positionError]);
+
+  return { prayerTimes, metaData, isLoading, error };
 }
 
 export default usePrayerTimes;

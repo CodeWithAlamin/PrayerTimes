@@ -8,7 +8,12 @@ export async function callApi({ latitude, longitude }) {
 
   const url = `https://api.aladhan.com/v1/timings/${date}?latitude=${latitude}&longitude=${longitude}&iso8601=true&method=1`;
 
-  const response = await fetch(url).then((response) => response.json());
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
 
-  return response;
+    return data;
+  } catch (error) {
+    return { error: error.message };
+  }
 }

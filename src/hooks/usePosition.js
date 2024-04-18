@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 function usePosition() {
   const [latLong, setLatLong] = useState({});
+  const [positionError, setPositionError] = useState(null);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -12,14 +13,20 @@ function usePosition() {
             longitude: position.coords.longitude,
           });
         },
-        (error) => {
-          console.error(error);
+        (positionError) => {
+          if (positionError.code === 1) {
+            setPositionError(
+              "Please enable location permission to use this feature"
+            );
+          } else {
+            setPositionError("Unable to retrieve location");
+          }
         }
       );
     }
   }, []);
 
-  return latLong;
+  return { latLong, positionError };
 }
 
 export default usePosition;

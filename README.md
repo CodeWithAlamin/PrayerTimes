@@ -6,13 +6,11 @@
 
   <h3>
     <a href="https://prayer-times-alamin.vercel.app">
-      <strong>Demo Website</strong>
+      <strong>View Demo 🚀</strong>
     </a>
   </h3>
 
   <div align="center">
-    <a href="https://prayer-times-alamin.vercel.app">View Demo</a>
-    •
     <a href="https://github.com/CodePapa360/PrayerTimes/issues">Report Bug</a>
     •
     <a href="https://github.com/CodePapa360/PrayerTimes/pulls">Request Feature</a>
@@ -95,9 +93,8 @@ npm run dev
 
 <b>👤 Alamin</b>
 
-- Twitter - [@CodePapa360](https://www.twitter.com/CodePapa360)
-- LinkedIn - [@CodePapa360](https://www.linkedin.com/in/codepapa360)
-- Frontend Mentor - [@CodePapa360](https://www.frontendmentor.io/profile/CodePapa360)
-- Github: [@CodePapa360](https://github.com/codepapa360)
+- Twitter : [@CodePapa360](https://www.twitter.com/CodePapa360)
+- LinkedIn : [@CodePapa360](https://www.linkedin.com/in/codepapa360)
+- Frontend Mentor : [@CodePapa360](https://www.frontendmentor.io/profile/CodePapa360)
 
 Feel free to contact me with any questions or feedback!
