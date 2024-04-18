@@ -10,7 +10,9 @@ function App() {
   return (
     <>
       <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4 ">
-        <h1 className="text-center m-6 text-3xl font-bold">Prayer Times</h1>
+        <h1 className="text-center m-6 text-3xl font-bold font-[cursive]">
+          Prayer Times
+        </h1>
         {error && (
           <div className="bg-red-500 text-white p-4 rounded-lg mb-4">
             {error}
@@ -26,12 +28,12 @@ function App() {
         {!isLoading && !error && (
           <div className="w-full mb-8">
             <div className=" mx-auto bg-emerald-600 max-w-md w-full rounded-2xl mb-8 p-4 flex flex-col items-center">
-              <h2 className="text-2xl mb-4 border-b-2 border-dotted border-white pb-2">
-                Current Prayer
+              <h2 className=" mb-4 border-b-2 border-dotted border-white pb-2">
+                Current Waqt
               </h2>
               {currentPrayer.name ? (
                 <>
-                  <p className="font-bold text-xl">{currentPrayer.name}</p>
+                  <p className="font-bold text-2xl">{currentPrayer.name}</p>
                   <p>{currentPrayer.remaining}</p>
                 </>
               ) : (
