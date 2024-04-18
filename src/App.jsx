@@ -8,15 +8,14 @@ function App() {
   const PrayerTimesArray = Object.entries(prayerTimes);
 
   return (
-    <>
-      <div className="bg-slate-800 min-h-screen text-white overflow-hidden flex flex-col items-center p-2 px-4 select-none">
+    <div className="grid grid-cols-1 grid-rows-1 min-h-screen justify-between">
+      <div className="bg-slate-800 text-white overflow-hidden flex flex-col items-center p-2 px-4 select-none">
         <h1 className="text-center m-6 text-5xl font-bold font-[cursive]">
           Prayer Times
         </h1>
+
         {error && (
-          <div className="bg-red-500 text-white p-4 rounded-lg mb-4">
-            {error}
-          </div>
+          <span className="bg-red-500 p-4 rounded-lg mb-4">{error}</span>
         )}
 
         {isLoading && (
@@ -85,7 +84,7 @@ function App() {
           </a>
         </span>
       </footer>
-    </>
+    </div>
   );
 }
 

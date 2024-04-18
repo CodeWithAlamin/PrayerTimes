@@ -16,10 +16,10 @@ function usePosition() {
         (positionError) => {
           if (positionError.code === 1) {
             setPositionError(
-              "Please enable location permission to use this feature"
+              "⚠️Please enable location permission to use this feature!"
             );
           } else {
-            setPositionError("Unable to retrieve location");
+            setPositionError("Unable to retrieve location!");
           }
         }
       );
