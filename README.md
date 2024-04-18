@@ -32,7 +32,7 @@
 
 <!-- Brief -->
 <p align="center">
-"Prayer Times" is a simple web application that provides prayer times based on the user's location. It utilizes the Geolocation API to determine the user's location and the <a href="https://aladhan.com/prayer-times-api">Aladhan Prayer times API</a> Aladhan Prayer times API to fetch the corresponding prayer times.
+"Prayer Times" is a simple web application that provides prayer times based on the user's location. It utilizes the Geolocation API to determine the user's location and the <a href="https://aladhan.com/prayer-times-api">Aladhan Prayer times API</a> to fetch the corresponding prayer times.
 </p>
 
 <!-- Screenshot -->
@@ -51,7 +51,6 @@
 
 ## Key Features
 
-- Give me the list of the key features of this app.
 - Uses the Geolocation API to determine the user's location.
 - Uses the [Aladhan Prayer times API](https://aladhan.com/prayer-times-api) to fetch the corresponding prayer times.
 - Displays the current prayer with remaining time.
