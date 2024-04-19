@@ -59,6 +59,7 @@
 
 - React
 - TailwindCSS
+- HTML
 - [Aladhan Prayer times API](https://aladhan.com/prayer-times-api)
 - Vite
 
