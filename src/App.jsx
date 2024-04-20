@@ -20,13 +20,13 @@ function App() {
 
         {isLoading && (
           <div className="flex justify-center items-center pt-4">
-            <span className="h-8 w-8 rounded-full animate-spin border-4 border-emerald-300/50 border-t-emerald-300"></span>
+            <span className="h-8 w-8 rounded-full animate-spin border-4 border-teal-300/50 border-t-teal-300"></span>
           </div>
         )}
 
         {!isLoading && !error && (
           <div className="w-full mb-8">
-            <div className=" mx-auto bg-emerald-600 max-w-md w-full rounded-2xl mb-8 p-4 flex flex-col items-center">
+            <div className=" mx-auto bg-teal-600 max-w-md w-full rounded-2xl mb-8 p-4 flex flex-col items-center">
               <h2 className=" mb-4 border-b-2 border-dotted border-white pb-2">
                 Current Waqt
               </h2>
@@ -50,7 +50,7 @@ function App() {
                 <div
                   className={`${
                     prayer[0] === currentPrayer.name
-                      ? "bg-emerald-600"
+                      ? "bg-teal-600"
                       : "bg-slate-700"
                   } p-4 rounded flex flex-col items-center max-w-xm rounded-t-full`}
                   key={prayer[0]}
@@ -71,11 +71,11 @@ function App() {
         )}
       </div>
 
-      <footer className="bg-slate-900 text-white py-6 px-4 border-double border-t-4 border-emerald-500">
+      <footer className="bg-slate-900 text-white py-6 px-4 border-double border-t-4 border-teal-500">
         <span className="text-center block">
           Made with ❤️ by{" "}
           <a
-            className="text-emerald-300 underline"
+            className="text-teal-300 underline"
             href="https://github.com/CodePapa360"
             target="_blank"
             rel="noopener noreferrer"
