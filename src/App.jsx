@@ -1,11 +1,14 @@
 import { formateTime } from "./common";
 import usePrayerTimes from "./hooks/usePrayerTimes";
 import useCurrentPrayer from "./hooks/useCurrentPrayer";
+import CurrentPrayer from "./CurrentPrayer";
 
 function App() {
   const { prayerTimes, metaData, isLoading, error } = usePrayerTimes();
-  const { currentPrayer } = useCurrentPrayer();
   const PrayerTimesArray = Object.entries(prayerTimes);
+  const { currentPrayer } = useCurrentPrayer();
+
+  // console.log(prayerTimes);
 
   return (
     <div className="grid grid-cols-1 grid-rows-1 min-h-screen min-h-dvh min-h-svh justify-between">
@@ -26,19 +29,7 @@ function App() {
 
         {!isLoading && !error && (
           <div className="w-full mb-8">
-            <div className=" mx-auto bg-teal-600 max-w-md w-full rounded-2xl mb-8 p-4 flex flex-col items-center">
-              <h2 className=" mb-4 border-b-2 border-dotted border-white pb-2">
-                Current Waqt
-              </h2>
-              {currentPrayer.name ? (
-                <>
-                  <p className="font-bold text-2xl">{currentPrayer.name}</p>
-                  <p>{currentPrayer.remaining}</p>
-                </>
-              ) : (
-                "No prayer at the moment"
-              )}
-            </div>
+            <CurrentPrayer />
 
             <div className="mb-8 text-xs text-center select-none">
               <p>Based on: {metaData.method.name}</p>

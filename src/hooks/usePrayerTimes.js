@@ -15,7 +15,7 @@ function usePrayerTimes() {
     // const latLong = { latitude: 23.822337, longitude: 90.3654296 };
 
     async function fetchData() {
-      if (!latLong.latitude || !latLong.longitude) return;
+      if (!latLong?.latitude || !latLong?.longitude) return;
 
       setIsLoading(true);
 
@@ -29,8 +29,7 @@ function usePrayerTimes() {
         }
 
         const { data } = response;
-        const { timings } = data;
-        const { meta } = data;
+        const { timings, meta } = data;
 
         // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time.
         const asrEnd = new Date(timings["Maghrib"]);
@@ -70,7 +69,12 @@ function usePrayerTimes() {
     }
   }, [positionError]);
 
+  // console.log("Position", latLong);
+  // console.log("Prayer Times", prayerTimes);
+  // console.log("isLoading", isLoading);
+
   return { prayerTimes, metaData, isLoading, error };
+  // return { metaData, isLoading, error };
 }
 
 export default usePrayerTimes;

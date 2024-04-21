@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import usePrayerTimes from "./usePrayerTimes";
 
 function useCurrentPrayer() {
-  const { prayerTimes } = usePrayerTimes();
+  const { prayerTimes, isLoading, error } = usePrayerTimes();
 
   const [currentPrayer, setCurrentPrayer] = useState({
     name: "",
@@ -14,6 +14,7 @@ function useCurrentPrayer() {
     const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
     const updateCurrentPrayer = () => {
+      if (!prayerTimes) return;
       if (!prayerTimes[prayers[0]]) return;
       // calculate current prayer
       const now = new Date();
@@ -60,7 +61,7 @@ function useCurrentPrayer() {
     return () => clearInterval(interval);
   }, [prayerTimes]);
 
-  return { currentPrayer };
+  return { currentPrayer, isLoading, error };
 }
 
 export default useCurrentPrayer;
