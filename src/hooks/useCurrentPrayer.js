@@ -16,11 +16,12 @@ function useCurrentPrayer() {
     const updateCurrentPrayer = () => {
       if (!prayerTimes) return;
       if (!prayerTimes[prayers[0]]) return;
-      // calculate current prayer
+
+      // calculating current prayer
       const now = new Date();
       let currentPrayer = { name: "", remaining: "" };
 
-      // find the current prayer, use forEach
+      // find the current prayer
       prayers.forEach((prayer) => {
         // if (!prayerTimes[prayer]) return;
 

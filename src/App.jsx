@@ -1,14 +1,14 @@
 import { formateTime } from "./common";
-import usePrayerTimes from "./hooks/usePrayerTimes";
 import useCurrentPrayer from "./hooks/useCurrentPrayer";
 import CurrentPrayer from "./CurrentPrayer";
+import usePrayerTimes from "./hooks/usePrayerTimes";
 
 function App() {
   const { prayerTimes, metaData, isLoading, error } = usePrayerTimes();
   const PrayerTimesArray = Object.entries(prayerTimes);
   const { currentPrayer } = useCurrentPrayer();
 
-  // console.log(prayerTimes);
+  // console.log("Prayer times component", prayerTimes);
 
   return (
     <div className="grid grid-cols-1 grid-rows-1 min-h-screen min-h-dvh min-h-svh justify-between">

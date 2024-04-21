@@ -31,6 +31,8 @@ function usePrayerTimes() {
         const { data } = response;
         const { timings, meta } = data;
 
+        // console.log("Timings", timings);
+
         // Asr prayer's ending time is 15 minutes minus from the Maghrib prayer starting time.
         const asrEnd = new Date(timings["Maghrib"]);
         asrEnd.setMinutes(asrEnd.getMinutes() - 15);
@@ -49,6 +51,8 @@ function usePrayerTimes() {
           Maghrib: { from: timings.Maghrib, to: timings.Isha },
           Isha: { from: timings.Isha, to: timings.Midnight },
         };
+
+        // console.log("Formatted Timings", formatedTimings);
 
         setPrayerTimes(formatedTimings);
         setMetaData(meta);
@@ -69,12 +73,9 @@ function usePrayerTimes() {
     }
   }, [positionError]);
 
-  // console.log("Position", latLong);
-  // console.log("Prayer Times", prayerTimes);
-  // console.log("isLoading", isLoading);
+  // console.log("Prayer times hook", prayerTimes);
 
   return { prayerTimes, metaData, isLoading, error };
-  // return { metaData, isLoading, error };
 }
 
 export default usePrayerTimes;
