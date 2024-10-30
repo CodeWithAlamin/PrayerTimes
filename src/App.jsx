@@ -76,7 +76,7 @@ function App() {
           Made with ❤️ by{" "}
           <a
             className="text-teal-300 underline"
-            href="https://github.com/CodePapa360"
+            href="https://github.com/CodeWithAlamin"
             target="_blank"
             rel="noopener noreferrer"
           >
